@@ -25,7 +25,7 @@ export default function Header({ show_sb, show_items, show_announce_btn }) {
                         <PiSuitcaseSimpleDuotone />
                         <span>Plano Profisional</span>
                     </HeaderItem>
-                    <HeaderItem>
+                    <HeaderItem onClick={()=> navigate('/my-announces')}>
                         <BsGrid />
                         <span>Meus anúncios</span>
                     </HeaderItem>

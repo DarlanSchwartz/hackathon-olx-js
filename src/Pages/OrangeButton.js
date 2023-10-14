@@ -21,10 +21,16 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 
-&:hover{
+&:enabled{
+    &:hover{
     color: #FFA800;
     border: 1px solid #FFA800;
     background-color: white;
+}
+}
+&:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 `;
 

@@ -5,13 +5,23 @@ import Web3 from 'web3';
 import axios from 'axios';
 import { Alchemy, Network } from "alchemy-sdk";
 import OrangeButton from './OrangeButton';
+import { useNavigate } from 'react-router-dom';
+import ApplicationContext from '../AppContext';
 
 export default function RegisterVehiclePage() {
     const [userAddress, setUserAddress] = useState(null);
     const [nftsEspecificacoes, setNftsEspecificacoes] = useState();
+    const { products, setProducts } = useContext(ApplicationContext);
     const [selectedMethod, setSelectedMethod] = useState("DREX");
     const [photos, setPhotos] = useState([]);
     const photosRef = useRef();
+    const yearRef = useRef();
+    const priceRef = useRef();
+    const locationRef = useRef();
+    const brandRef = useRef();
+    const modelRef = useRef();
+
+    const navigate = useNavigate();
     function updatePhotos() {
         let files = [];
         for (let i = 0; i < photosRef?.current.files.length; i++) {
@@ -83,15 +93,32 @@ export default function RegisterVehiclePage() {
             alert('MetaMask não encontrada. Você precisa instalar o MetaMask para usar este aplicativo.');
         }
     }, []);
+
+    function register() {
+        setProducts(
+            [
+                ...products,
+                {
+                    name: `${brandRef?.current?.value} ${modelRef?.current?.value} ${yearRef?.current?.value}`,
+                    price: priceRef.current.value,
+                    location: locationRef?.current?.value,
+                    createdAt: `Hoje, ${new Date().getHours()}:${new Date().getMinutes()}`,
+                    images: [...photosRef.current.files]
+                }
+            ]
+        );
+        navigate('/');
+
+    }
     return (
         <PageContainer>
             <h1 className='title'>O que você está anunciando?</h1>
             <MainBox>
-                <BackButton>
+                <BackButton onClick={() => navigate('/my-announces')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="43" height="24" viewBox="0 0 43 24" fill="none">
                         <path d="M0.939339 10.9393C0.353554 11.5251 0.353554 12.4749 0.939339 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97918 12.6066 1.3934C12.0208 0.807609 11.0711 0.807609 10.4853 1.3934L0.939339 10.9393ZM43 10.5L2 10.5L2 13.5L43 13.5L43 10.5Z" fill="#6E0AD6" />
                     </svg>
-                    <span>Carros vans e utilitários</span>
+                    <span>Meus anúncios</span>
                 </BackButton>
                 <SellMethod>
                     <svg xmlns="http://www.w3.org/2000/svg" width="37" height="37" viewBox="0 0 37 37" fill="none">
@@ -149,7 +176,7 @@ export default function RegisterVehiclePage() {
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="brands">Quantas a marca do veículo?</label>
-                        <SelectForm name="brands" id="brands">
+                        <SelectForm ref={brandRef} name="brands" id="brands">
                             {
                                 BRANDS_OPTIONS.map((option) => {
                                     return <option key={option} value={option}>{option}</option>
@@ -159,7 +186,7 @@ export default function RegisterVehiclePage() {
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="models">Quantas o modelo do veículo?</label>
-                        <SelectForm name="models" id="models">
+                        <SelectForm ref={modelRef} name="models" id="models">
                             {
                                 MODELS_OPTIONS.map((option) => {
                                     return <option key={option} value={option}>{option}</option>
@@ -169,7 +196,7 @@ export default function RegisterVehiclePage() {
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="year">Quantas o ano de fabricação?</label>
-                        <SelectForm name="year" id="year">
+                        <SelectForm ref={yearRef} name="year" id="year">
                             {
                                 YEAR_OPTIONS.map((option) => {
                                     return <option key={option} value={option}>{option}</option>
@@ -198,12 +225,12 @@ export default function RegisterVehiclePage() {
                         </SelectForm>
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="cep">CEP</label>
-                        <InputForm type='number' id='cep' />
+                        <label htmlFor="location">Localização</label>
+                        <InputForm type='text' id='location' ref={locationRef} />
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="cep">Preço de venda:</label>
-                        <InputForm type='number' id='cep' />
+                        <label ref={priceRef} htmlFor="price">Preço de venda:</label>
+                        <InputForm type='number' id='price' />
                     </InputContainer>
 
                     <TipPhotos>
@@ -226,7 +253,7 @@ export default function RegisterVehiclePage() {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
                                     <path d="M16.4062 0C17.9102 0 19.3628 0.193685 20.7642 0.581055C22.1655 0.968424 23.4701 1.521 24.6777 2.23877C25.8854 2.95654 26.9906 3.81104 27.9932 4.80225C28.9958 5.79346 29.8503 6.8986 30.5566 8.11768C31.263 9.33675 31.8156 10.647 32.2144 12.0483C32.6131 13.4497 32.8125 14.9023 32.8125 16.4062C32.8125 17.9102 32.6188 19.3628 32.2314 20.7642C31.8441 22.1655 31.2915 23.4701 30.5737 24.6777C29.856 25.8854 29.0015 26.9906 28.0103 27.9932C27.019 28.9958 25.9139 29.8503 24.6948 30.5566C23.4757 31.263 22.1655 31.8156 20.7642 32.2144C19.3628 32.6131 17.9102 32.8125 16.4062 32.8125C14.9023 32.8125 13.4497 32.6188 12.0483 32.2314C10.647 31.8441 9.34245 31.2915 8.13477 30.5737C6.92708 29.856 5.82194 29.0015 4.81934 28.0103C3.81673 27.019 2.96224 25.9139 2.25586 24.6948C1.54948 23.4757 0.996908 22.1712 0.598145 20.7812C0.199382 19.3913 0 17.9329 0 16.4062C0 14.9023 0.193685 13.4497 0.581055 12.0483C0.968424 10.647 1.521 9.34245 2.23877 8.13477C2.95654 6.92708 3.81104 5.82194 4.80225 4.81934C5.79346 3.81673 6.8986 2.96224 8.11768 2.25586C9.33675 1.54948 10.6413 0.996908 12.0312 0.598145C13.4212 0.199382 14.8796 0 16.4062 0ZM26.25 15.3125H17.5V6.5625H15.3125V15.3125H6.5625V17.5H15.3125V26.25H17.5V17.5H26.25V15.3125Z" fill="#9747FF" />
                                 </svg>
-                                <input multiple  ref={photosRef} type="file" onChange={updatePhotos}/>
+                                <input multiple ref={photosRef} type="file" onChange={updatePhotos} />
                             </div>
                             {
                                 photos.map((photo) => {
@@ -242,7 +269,7 @@ export default function RegisterVehiclePage() {
                     </AddPhotosContainer>
                     <Bottom>
                         <p className='agreement'>Ao continuar, você está ciente que a OLX poderá compartilhar seus dados com instituições financeiras parceiras, que poderão oferecer soluções para potenciais compradores e que não compartilhamos seus dados com empresas de fora do Grupo OLX Brasil que oferecem atividades similares às nossas.O uso dos seus dados pode ser consultado na Política de privacidade, com a qual você concorda ao enviar o anúncio.</p>
-                        <OrangeButton>
+                        <OrangeButton onClick={() => register()}>
                             Enviar anúncio
                         </OrangeButton>
                     </Bottom>
@@ -378,6 +405,11 @@ border: 1px solid #C8C8C8;
 padding-left: 10px;
 padding-right: 10px;
 background: #FFF;
+border-radius: 10px;
+cursor: pointer;
+&:focus{
+    outline: 1px solid #9747FF;
+}
 `;
 
 const VehicleForm = styled.div`
@@ -392,6 +424,10 @@ height: 50px;
 border: 1px solid #C8C8C8;
 background: #FFF;
 font-size: 20px;
+border-radius: 10px;
+&:focus{
+    outline: 1px solid #9747FF;
+}
 `;
 
 const InputContainer = styled.div`

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 
-export default function SellerStatus() {
+export default function BuyerStatus() {
     return (
         <PageContainer>
             <h1 className='title'>Status da venda</h1>

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { PHOTO_CATEGORIES } from './constants';
+import { PHOTO_CATEGORIES } from '../constants';
 import ApplicationContext from '../AppContext';
 
 import Product from '../Components/Product.component';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
   const { products, setProducts } = useContext(ApplicationContext);
+  const navigate = useNavigate();
   return (
     <PageContainer>
       <Banner>
@@ -31,7 +33,7 @@ export default function Home() {
         {
           products.map((product) => (
 
-            <Product key={product.name} product={product}/>
+            <Product click={()=> navigate('/buy', {state:product})} key={product.name} product={product}/>
           ))
         }
       </ProductList>

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { PiSuitcaseSimpleDuotone } from 'react-icons/pi';
 import { BsGrid, BsChat, BsBell, BsSearch } from 'react-icons/bs';
-import OrangeButton from '../Pages/OrangeButton';
+import OrangeButton from './OrangeButton';
 import { useNavigate } from 'react-router-dom';
 
 export default function Header({ show_sb, show_items, show_announce_btn }) {

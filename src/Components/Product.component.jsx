@@ -13,11 +13,10 @@ export default function Product({ product, click }) {
     return (
         <ProductItem onClick={()=> click()} key={product.name}>
             <img src={getImg()} alt={product} />
-            <p className='price'>R$ {product?.price}</p>
+            <p className='price'>{product?.price?.toLocaleString('pt-br',{ style: 'currency',currency: 'BRL',minimumFractionDigits: 2,}) || "R$ 0,00"}</p>
             <p className='name'>{product?.name}</p>
             <p className='location'>{product?.location}</p>
             <p className='time'><MdOutlinePlace />{product?.createdAt}</p>
-
         </ProductItem>
     )
 }

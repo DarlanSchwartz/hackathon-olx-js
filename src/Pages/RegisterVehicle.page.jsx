@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { BRANDS_OPTIONS, DOORS_OPTIONS, MODELS_OPTIONS, PHOTO_TIPS, STATE_OF_FINANCING_OPTIONS, YEAR_OPTIONS } from './constants';
+import { BRANDS_OPTIONS, DOORS_OPTIONS, MODELS_OPTIONS, PHOTO_TIPS, STATE_OF_FINANCING_OPTIONS, YEAR_OPTIONS } from '../constants';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Web3 from 'web3';
 import axios from 'axios';
 import { Alchemy, Network } from "alchemy-sdk";
-import OrangeButton from './OrangeButton';
+import OrangeButton from '../Components/OrangeButton';
 import { useNavigate } from 'react-router-dom';
 import ApplicationContext from '../AppContext';
 

@@ -7,40 +7,83 @@ import { AiOutlineCalculator } from 'react-icons/ai';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { BsFlag } from 'react-icons/bs';
+import {useNavigate} from 'react-router-dom';
 
 
-import SCAnnouceInfo from './SCAnnouceInfo';
+import SCAnnouceInfo from '../Components/SCAnnouceInfo.component';
 
 export default function AnnouncePage() {
 
     const [Car, setCar] = useState();
     const state = useLocation();
+    const navigate = useNavigate();
+    const [mainImage, setMainImage] = useState();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(updateCarInfo, []);
 
     function updateCarInfo() {
         const car = state.state;
         setCar(car);
+        setMainImage(getMainImg(car));
     }
+
+    function getMainImg(car) {
+
+        if (car?.images?.[0] && typeof car?.images?.[0] === 'string') {
+            return car?.images?.[0];
+        }
+
+        return URL.createObjectURL(car?.images?.[0]);
+    }
+      function changeCurrentImageButtonAction(up){
+       
+        if(up){
+            if(Car?.images?.[currentImageIndex - 1]){
+                setMainImage(getMainImg({ ...Car, images: [Car?.images?.[currentImageIndex - 1]] }));
+                setCurrentImageIndex(cur => {
+                    return cur - 1;
+                });
+                
+            }
+        }
+        else{
+            if(Car?.images?.[currentImageIndex + 1]){
+                setMainImage(getMainImg({ ...Car, images: [Car?.images?.[currentImageIndex + 1]] }));
+                setCurrentImageIndex(cur => {
+                    return cur + 1;
+                });
+            }
+        }
+      }
 
     return (
         <PageContainer>
+            <h1 className='car-title'>{Car?.name || "Carregando.."}</h1>
             <ProductContainer>
                 <PhotoContainer>
-                    <img src="https://revistacarro.com.br/wp-content/uploads/2021/03/aston-vantage-safety-car.jpg" alt="" />
+                    <img src={mainImage} className='main-photo' alt="" />
                     <PhotoList>
-                        <button><SlArrowUp /></button>
-                        <PhotoListImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREM6pNcX2xfvp_bOjqHgmCo8p4qyGZZasiNGIpnaxJh4Zcvny8zryL4Dhu5NsBq4HsNlI&usqp=CAU' />
-                        <PhotoListImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREM6pNcX2xfvp_bOjqHgmCo8p4qyGZZasiNGIpnaxJh4Zcvny8zryL4Dhu5NsBq4HsNlI&usqp=CAU' />
-                        <PhotoListImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREM6pNcX2xfvp_bOjqHgmCo8p4qyGZZasiNGIpnaxJh4Zcvny8zryL4Dhu5NsBq4HsNlI&usqp=CAU' />
-                        <PhotoListImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREM6pNcX2xfvp_bOjqHgmCo8p4qyGZZasiNGIpnaxJh4Zcvny8zryL4Dhu5NsBq4HsNlI&usqp=CAU' />
-                        <PhotoListImg src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREM6pNcX2xfvp_bOjqHgmCo8p4qyGZZasiNGIpnaxJh4Zcvny8zryL4Dhu5NsBq4HsNlI&usqp=CAU' />
-                        <button><SlArrowUp style={{ transform: "rotateZ(180deg)" }} /></button>
+                        <button onClick={()=> changeCurrentImageButtonAction(true)}>
+                            <SlArrowUp />
+                            </button>
+                        {
+                            Car?.images?.map((img,index) => (
+                                <PhotoListImg onClick={() => {
+                                    setMainImage(getMainImg({ ...Car, images: [img] }));
+                                    setCurrentImageIndex(index);
+                                }} src={img} />
+                            ))
+                        }
+                        {/*change image to before button */}
+                        <button onClick={()=> changeCurrentImageButtonAction(false)}>
+                            <SlArrowUp style={{ transform: "rotateZ(180deg)" }} />
+                            </button>
                     </PhotoList>
-                    <button className='arrow right'>
+                    <button onClick={()=> changeCurrentImageButtonAction(false)} className='arrow right'>
                         <SlArrowUp style={{ transform: "rotateZ(90deg)" }} />
                     </button>
-                    <button className='arrow left'>
+                    <button onClick={()=> changeCurrentImageButtonAction(true)} className='arrow left'>
                         <SlArrowUp style={{ transform: "rotateZ(-90deg)" }} />
                     </button>
                 </PhotoContainer>
@@ -107,11 +150,11 @@ export default function AnnouncePage() {
 
             <BuyContainer>
                 <PriceContainer>
-                    <span>{Car?.sellPrice?.toLocaleString('pt-br',{ style: 'currency',currency: 'BRL',minimumFractionDigits: 2,}) || "R$ 0,00"}</span>
+                    <span>{Car?.price?.toLocaleString('pt-br',{ style: 'currency',currency: 'BRL',minimumFractionDigits: 2,}) || "R$ 0,00"}</span>
                 </PriceContainer>
                 <BuyBox>
                     <h1>Comprar via DREX</h1>
-                    <button>Comprar</button>
+                    <button onClick={()=> navigate('/qr-code-pay')}>Comprar</button>
                 </BuyBox>
                 <SCAnnouceInfo />
             </BuyContainer>
@@ -293,7 +336,8 @@ border: 1px solid #5206AE;
 
 background: #FFF;
 span{
-color : #5206AE;text-align: center;
+color : #5206AE;
+text-align: center;
 font-family: Nunito Sans;
 font-size: 24px;
 font-style: normal;
@@ -306,6 +350,19 @@ const PageContainer = styled.div`
     font-family: 'Nunito Sans', sans-serif;
     display: flex;
     justify-content:center;
+
+    .car-title{
+        position: fixed;
+        left: 100px;top: 130px;
+        color: #1A1D23;
+
+text-align: center;
+font-family: Nunito Sans;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: 31.68px; /* 132% */
+    }
 `;
 const PhotoListImg = styled.img`
     width: 56px;
@@ -314,6 +371,9 @@ const PhotoListImg = styled.img`
     object-fit: cover;
     border-radius: 10px;
     cursor: pointer;
+    &:hover{
+        opacity: 0.7;
+    }
 `;
 const PhotoList = styled.div`
     width: 56px;
@@ -343,7 +403,7 @@ const BuyContainer = styled.div`
 width: 40%;
 margin-top: 200px;
 max-width:  288px;
-margin-left: 50px;
+margin-left: 100px;
 `;
 
 const ProductContainer = styled.div`
@@ -363,7 +423,7 @@ position: relative;
 
 .left{
     position: absolute;
-    left: 0;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -371,7 +431,7 @@ position: relative;
 
 .right{
     position: absolute;
-    right: 0;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
 }
@@ -387,12 +447,19 @@ border-radius: 4px 0px 0px 4px;
 opacity: 0.8;
 background: #D9D9D9;
 &:hover{
-    opacity: 1;
+   background-color: #F28000;
 }
 }
-img{
+.main-photo{
     max-width: 700px;
+    width: 80%;
     height: 100%;
+    max-height: 408px;
     object-fit: cover;
+    &:hover{
+        border: 1px solid #F28000;
+        scale: 1.3;
+        z-index: 5;
+    }
 }
 `;

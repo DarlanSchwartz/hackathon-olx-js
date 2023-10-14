@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import OrangeButton from '../Pages/OrangeButton';
+import OrangeButton from './OrangeButton';
 import Product from './Product.component';
 
 export default function MyAnnounce({ product,onClick }) {

@@ -1,7 +1,10 @@
 import styled from 'styled-components'
+import OrangeButton from '../Components/OrangeButton';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function BuyerStatus() {
+    const navigate = useNavigate();
     return (
         <PageContainer>
             <h1 className='title'>Status da venda</h1>
@@ -11,7 +14,7 @@ export default function BuyerStatus() {
                     <StatusInfo translate='translateX(0)'>
                         <h1>PIX recebido</h1>
                         <p>
-                            Agora com o PIX recebido. Você precisa marcar com o comprador para ele avaliar o carro e submeter as imagem na plataforma da OLX
+                        PIX realizado com sucesso. Agora agende um encontro com o vendedor e realize a vistoria para concretizar a venda. 
                         </p>
                     </StatusInfo>
                 </div>
@@ -19,8 +22,11 @@ export default function BuyerStatus() {
                     <StatusInfo translate='translateX(-40%)'>
                         <h1 className='center'>Auditoria do veiculo</h1>
                         <p className='center'>
-                            Nessa etapa a OLX avalia se o veiculo está como anunciado e de acordo com os parâmetros da plataforma
+                        Nessa etapa a OLX avalia se o veiculo está como anunciado e de acordo com os parâmetros da plataforma
                         </p>
+                        <OrangeButton style={{height:"40px", marginTop:'40px'}} onClick={()=> navigate('/compliance')}>
+                            Iniciar vistoria
+                            </OrangeButton>
                     </StatusInfo>
 
                 </div>
@@ -28,7 +34,7 @@ export default function BuyerStatus() {
                     <StatusInfo translate='translateX(-80%)'>
                         <h1 className='right'>DUT Transferido</h1>
                         <p className='right'>
-                            Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
+                        Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
                         </p>
                     </StatusInfo>
 
@@ -69,7 +75,7 @@ p{
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 14.1px; /* 100.714% */
+    line-height: 17px; /* 100.714% */
 }
 `;
 

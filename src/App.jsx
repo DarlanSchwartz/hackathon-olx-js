@@ -4,10 +4,12 @@ import AnnouncePage from './Pages/Announce.page.jsx'
 import ApplicationContext from './AppContext.js';
 import Header from './Components/Header.component.jsx';
 import BuyerStatus from './Pages/BuyerStatus.page.jsx';
-import RegisterVehiclePage from './Pages/RegisterVehiclePage.jsx';
+import RegisterVehiclePage from './Pages/RegisterVehicle.page.jsx';
 import Home from './Pages/Home.jsx';
-import MyAnnouncesPage from './Pages/MyAnnouncesPage.jsx';
+import MyAnnouncesPage from './Pages/MyAnnounces.page.jsx';
 import SaleStatusSeller from './Pages/SaleStatusSeller.jsx';
+import QRCodePage from './Pages/QRCode.page.jsx';
+import Compliance from './Pages/Compliance.page.jsx';
 
 export default function App() {
   const [cars, setCars] = useState([
@@ -19,6 +21,8 @@ export default function App() {
       description: "Carro em bom estado de conservação, com 4 pneus novos, motor 1.0, 2 portas, com 100.000 km rodados",
       images: [
         "/PhotoTips/tip-photo-1 (4).png",
+        "/PhotoTips/tip-photo-1 (3).png",
+        "/PhotoTips/tip-photo-1 (5).png",
       ],
     },
   ]);
@@ -47,8 +51,11 @@ export default function App() {
           <Route path="/register" element={<RegisterVehiclePage />} />
           <Route path="/my-announces" element={<MyAnnouncesPage />} />
           <Route path="/status-seller" element={<SaleStatusSeller />} />
+          <Route path="/qr-code-pay" element={<QRCodePage />} />
+          <Route path="/compliance" element={<Compliance />} />
         </Routes>
       </BrowserRouter>
     </ApplicationContext.Provider>
   )
 }
+

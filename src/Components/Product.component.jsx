@@ -41,6 +41,7 @@ img{
   width: 100%;
   height: 50%;
   object-fit: cover;
+  transition: all 700ms;
 }
 .price{
   color: #1A1D23;

@@ -104,6 +104,22 @@ const CategoryItem = styled.li`
 display: flex;
 width: 92px;
 flex-direction: column;
+cursor: pointer;
+&:hover{
+  img{
+    width: 70px;
+    height: 70px;
+  }
+  .back{
+    border-radius: 50%;
+    background-color: #fff3e6;
+    
+  }
+ 
+p{
+  color: #6E0AD6;
+}
+}
 
 padding: 14px;
 justify-content: center;
@@ -129,6 +145,8 @@ height: 92px;
 }
 
 img{
+  width: 60px;
+    height: 60px;
   position: absolute;
   top: 25px;
   left: 50%;

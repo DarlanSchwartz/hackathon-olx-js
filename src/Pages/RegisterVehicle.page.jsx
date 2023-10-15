@@ -74,8 +74,6 @@ export default function RegisterVehiclePage() {
         setPhotos([
             "https://img.olx.com.br/images/90/904301553269682.jpg",
             "https://img.olx.com.br/images/90/900379794880835.jpg",
-            "https://img.olx.com.br/images/90/906359319697142.jpg",
-            "https://img.olx.com.br/images/89/897310797155500.jpg",
             "https://img.olx.com.br/images/90/905379918162159.jpg",
             "https://img.olx.com.br/images/90/900307195504143.jpg",
             "https://img.olx.com.br/images/90/901396430371336.jpg"
@@ -291,7 +289,7 @@ export default function RegisterVehiclePage() {
                             {
                                 photos.map((photo) => {
                                     return (
-                                        <div key={photo} className="preview">
+                                        <div key={Math.random()} className="preview">
                                             <img src={photo} alt="" />
                                         </div>
                                     );

@@ -67,6 +67,9 @@ export const MODELS_OPTIONS = [
     'Montana',
     'Onix',
     'Prisma',
+    'S10',
+    'Spin',
+    'Uno'
 ];
 
 export const YEAR_OPTIONS = [

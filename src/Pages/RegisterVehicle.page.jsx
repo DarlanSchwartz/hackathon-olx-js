@@ -20,6 +20,8 @@ export default function RegisterVehiclePage() {
     const locationRef = useRef();
     const brandRef = useRef();
     const modelRef = useRef();
+    const plateRef = useRef();
+    const plateFinalRef = useRef();
     const [DUTImage, setDUTImage] = useState(null);
 
     const navigate = useNavigate();
@@ -31,12 +33,7 @@ export default function RegisterVehiclePage() {
         setPhotos(files);
     }
     useEffect(() => {
-        if (!localStorage.getItem('userAddress')) {
-            connectWallet();
-        }
-        else {
-            setUserAddress(localStorage.getItem('userAddress'));
-        }
+        setUserAddress(localStorage.getItem('userAddress'));
     }, []);
     useEffect(() => {
         getNftByAdress();
@@ -71,6 +68,8 @@ export default function RegisterVehiclePage() {
         priceRef.current.value = "31990";
         locationRef.current.value = "São Paulo - SP";
         doorRef.current.value = "4";
+        plateRef.current.value = "BRA2E19";
+        plateFinalRef.current.value = "9";
         setPhotos([
             "https://img.olx.com.br/images/90/904301553269682.jpg",
             "https://img.olx.com.br/images/90/900379794880835.jpg",
@@ -99,7 +98,7 @@ export default function RegisterVehiclePage() {
             if (accounts.length > 0) {
                 setUserAddress(accounts[0]);
                 localStorage.setItem('userAddress', accounts[0]);
-                console.log("Endereço da carteira conectada:", accounts[0]);
+                //console.log("Endereço da carteira conectada:", accounts[0]);
             }
 
             const polygonNetwork = {
@@ -190,11 +189,11 @@ export default function RegisterVehiclePage() {
                 <VehicleForm style={{ marginTop: `${selectedMethod == "DREX" ? "50px" : "200px"}` }}>
                     <InputContainer>
                         <label htmlFor="plate">Placa do carro</label>
-                        <InputForm type='text' id='plate' />
+                        <InputForm ref={plateRef} type='text' id='plate' />
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="plate-final">Qual o final da Placa?</label>
-                        <InputForm type='text' id='plate-final' />
+                        <InputForm ref={plateFinalRef} type='text' id='plate-final' />
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="doors">Quantas portas?</label>
@@ -217,7 +216,7 @@ export default function RegisterVehiclePage() {
                         </SelectForm>
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="models">Quantas o modelo do veículo?</label>
+                        <label htmlFor="models">Qual é o modelo do veículo?</label>
                         <SelectForm ref={modelRef} name="models" id="models">
                             {
                                 MODELS_OPTIONS.map((option) => {
@@ -227,7 +226,7 @@ export default function RegisterVehiclePage() {
                         </SelectForm>
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="year">Quantas o ano de fabricação?</label>
+                        <label htmlFor="year">Qual é o ano de fabricação?</label>
                         <SelectForm ref={yearRef} name="year" id="year">
                             {
                                 YEAR_OPTIONS.map((option) => {
@@ -243,7 +242,7 @@ export default function RegisterVehiclePage() {
                         <span>Sobre o carro</span>
                     </SellMethod>
                     <InputContainer>
-                        <label htmlFor="km">Qual a quilometragem</label>
+                        <label htmlFor="km">Qual é a quilometragem</label>
                         <InputForm type='text' id='km' />
                     </InputContainer>
                     <InputContainer>
@@ -290,7 +289,7 @@ export default function RegisterVehiclePage() {
                             {
                                 photos.map((photo) => {
                                     return (
-                                        <div className="preview">
+                                        <div key={photo} className="preview">
                                             <img src={photo} alt="" />
                                         </div>
                                     );
@@ -431,6 +430,7 @@ span{
 
 const SelectForm = styled.select`
 height: 50px;
+font-size: 14px;
 width: 100%;
 max-width: 584px;
 border: 1px solid #C8C8C8;
@@ -455,7 +455,8 @@ const InputForm = styled.input`
 height: 50px;
 border: 1px solid #C8C8C8;
 background: #FFF;
-font-size: 20px;
+font-size: 14px;
+padding-left:10px;
 border-radius: 10px;
 &:focus{
     outline: 1px solid #9747FF;

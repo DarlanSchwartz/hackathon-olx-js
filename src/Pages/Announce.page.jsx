@@ -66,8 +66,9 @@ export default function AnnouncePage() {
 
     return (
         <PageContainer>
-            <h1 className='car-title'>{Car?.name || "Carregando.."}</h1>
+            
             <ProductContainer>
+            <h1 className='car-title'>{Car?.name || "Carregando.."}</h1>
                 <PhotoContainer>
                     <img src={mainImage} className='main-photo' alt="" />
                     <PhotoList>
@@ -359,16 +360,17 @@ const PageContainer = styled.div`
     justify-content:center;
 
     .car-title{
-        position: fixed;
-        left: 100px;top: 130px;
+        position: absolute;
+        left: 0;
+        top: -50px;
         color: #1A1D23;
 
-text-align: center;
-font-family: Nunito Sans;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: 31.68px; /* 132% */
+        text-align: center;
+        font-family: Nunito Sans;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 31.68px; /* 132% */
     }
 `;
 const PhotoListImg = styled.img`
@@ -416,6 +418,7 @@ margin-left: 100px;
 const ProductContainer = styled.div`
     width: 60%;
     margin-top: 200px;
+    position: relative;
 `;
 
 const PhotoContainer = styled.div`

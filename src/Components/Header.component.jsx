@@ -25,11 +25,9 @@ export default function Header({ show_sb, show_items, show_announce_btn }) {
         setTextoAtual((prevTexto) => prevTexto + textoOriginal[index]);
         setIndex((prevIndex) => prevIndex + 1);
       } else {
-        // Apagar o texto atual letra por letra
         if (textoAtual.length > 0) {
           setTextoAtual((prevTexto) => prevTexto.slice(0, -1));
         } else {
-          // Quando o texto atual estiver vazio, mude para a próxima palavra
           setIndex(0);
           setWordIndex((prevWordIndex) => (prevWordIndex + 1) % PLACEHOLDER_SEARCH_WORDS.length);
           setTextoOriginal(PLACEHOLDER_SEARCH_WORDS[(wordIndex + 1) % PLACEHOLDER_SEARCH_WORDS.length]);
@@ -38,8 +36,6 @@ export default function Header({ show_sb, show_items, show_announce_btn }) {
     }
 
     const interval = setInterval(adicionarLetra, 200);
-
-    // Limpa o intervalo quando o componente for desmontado
     return () => clearInterval(interval);
   }, [index, textoOriginal, textoAtual, wordIndex]);
 
@@ -131,7 +127,7 @@ const HeaderContainer = styled.header`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 12.648px;
+    gap: 30px;
     position: fixed;
     top: 0;
     left: 0;

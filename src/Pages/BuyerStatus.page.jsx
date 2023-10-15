@@ -1,10 +1,14 @@
 import styled from 'styled-components'
 import OrangeButton from '../Components/OrangeButton';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 export default function BuyerStatus() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [inAnalisisAuditory, setInAnalisisAuditory] = useState(true);
+    const [DUTTransfered, setDUTTransfered] = useState(false);
     return (
         <PageContainer>
             <h1 className='title'>Status da venda</h1>
@@ -14,35 +18,78 @@ export default function BuyerStatus() {
                     <StatusInfo translate='translateX(0)'>
                         <h1>PIX recebido</h1>
                         <p>
-                        PIX realizado com sucesso. Agora agende um encontro com o vendedor e realize a vistoria para concretizar a venda. 
+                            PIX realizado com sucesso. Agora agende um encontro com o vendedor e realize a vistoria para concretizar a venda.
                         </p>
                     </StatusInfo>
                 </div>
-                <div className='rounded'>
+                <div className={`rounded ${location.state.status == "success" ? "purple" : ""}`} onClick={()=> setInAnalisisAuditory(false)}>
                     <StatusInfo translate='translateX(-40%)'>
                         <h1 className='center'>Auditoria do veiculo</h1>
                         <p className='center'>
-                        Nessa etapa a OLX avalia se o veiculo está como anunciado e de acordo com os parâmetros da plataforma
+                            Nessa etapa a OLX avalia se o veiculo está como anunciado e de acordo com os parâmetros da plataforma
                         </p>
-                        <OrangeButton style={{height:"40px", marginTop:'40px'}} onClick={()=> navigate('/compliance')}>
-                            Iniciar vistoria
-                            </OrangeButton>
+                        {
+                            location.state.status == "success" ?
+                                (
+                                    <OrangeStatusButton style={{ height: "40px", marginTop: '40px', backgroundColor:inAnalisisAuditory ? "#FFA800" : "#24a148" }}>
+                                       {
+                                             inAnalisisAuditory ? "Em análise" : "Aprovado"
+                                       }
+                                    </OrangeStatusButton>
+                                )
+                                :
+                                <OrangeButton style={{ height: "40px", marginTop: '40px' }} onClick={() => navigate('/compliance')}>
+                                    Iniciar vistoria
+                                </OrangeButton>
+                        }
                     </StatusInfo>
 
                 </div>
-                <div className='rounded'>
+                <div className={`rounded ${DUTTransfered ? "purple" : ""}`} onClick={()=> setDUTTransfered(true)}>
                     <StatusInfo translate='translateX(-80%)'>
                         <h1 className='right'>DUT Transferido</h1>
                         <p className='right'>
-                        Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
+                            Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
                         </p>
+                        {
+                            !inAnalisisAuditory ?
+                                (
+                                    DUTTransfered ?
+                                    <OrangeStatusButton style={{ height: "40px", marginTop: '25px', backgroundColor:inAnalisisAuditory ? "#FFA800" : "#24a148" }}>
+                                              Aprovado
+                                    </OrangeStatusButton>
+                                    :
+                                    <OrangeButton style={{height:"40px", marginTop: '25px' }} >
+                                        Contestar entrega
+                                    </OrangeButton>
+                                )
+                                :
+                                <OrangeButton style={{ height: "40px", marginTop: '40px' }} onClick={() => navigate('/compliance')}>
+                                    Iniciar vistoria
+                                </OrangeButton>
+                        }
                     </StatusInfo>
-
                 </div>
             </ProgressBar>
         </PageContainer>
     )
 }
+
+const OrangeStatusButton = styled.div`
+display: flex;
+width: 100%;
+height: 40px;
+align-items: center;
+justify-content: center;
+color: #FFF;
+
+text-align: center;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 33.1px; /* 206.875% */
+`;
 
 const StatusInfo = styled.div`
 width: 210px;

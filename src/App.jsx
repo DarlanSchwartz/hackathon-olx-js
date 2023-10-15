@@ -17,7 +17,7 @@ export default function App() {
       name: "Audi A3",
       price: 15000,
       location: "São Paulo - SP",
-      createdAt: "Hoje, 21:33",
+      createdAt: "Ontem, 21:33",
       description: "Carro em bom estado de conservação, com 4 pneus novos, motor 1.0, 2 portas, com 100.000 km rodados",
       images: [
         "/PhotoTips/tip-photo-1 (4).png",

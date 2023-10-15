@@ -34,9 +34,6 @@ export default function RegisterVehiclePage() {
         setPhotos(files);
     }
     useEffect(() => {
-        setUserAddress(localStorage.getItem('userAddress'));
-    }, []);
-    useEffect(() => {
         getNftByAdress();
 
     }, [userAddress])
@@ -97,7 +94,7 @@ export default function RegisterVehiclePage() {
             const accounts = await window.web3.eth.getAccounts();
             if (accounts.length > 0) {
                 setUserAddress(accounts[0]);
-                localStorage.setItem('userAddress', accounts[0]);
+                // localStorage.setItem('userAddress', accounts[0]);
                 //console.log("Endereço da carteira conectada:", accounts[0]);
             }
 

@@ -11,12 +11,12 @@ export default function BuyerStatus() {
     const [aprovedAuditory, setAprovedAuditory] = useState(false);
     const [DUTTransfered, setDUTTransfered] = useState(false);
     const [aprovedDUT, setAprovedDUT] = useState(false);
-    useEffect(()=>{
+    useEffect(() => {
         window.scrollTo(0, 0);
-        if(location?.state?.status == "success"){
+        if (location?.state?.status == "success") {
             setInAnalisisAuditory(true);
         }
-    },[]);
+    }, []);
     return (
         <PageContainer>
             <h1 className='title'>Status da compra</h1>
@@ -30,11 +30,12 @@ export default function BuyerStatus() {
                         </p>
                     </StatusInfo>
                 </div>
-                <div className={`rounded ${location?.state?.status == "success" ? "purple" : ""}`} onClick={()=> {
+                <div className={`rounded ${location?.state?.status == "success" ? "purple" : ""}`} onClick={() => {
 
-                        setAprovedAuditory(true);
-                        setInAnalisisAuditory(false);
-                    
+                    setAprovedAuditory(true);
+                    setInAnalisisAuditory(false);
+                    setDUTTransfered(true);
+
                 }}>
                     <StatusInfo translate='translateX(-40%)'>
                         <h1 className='center'>Auditoria do veiculo</h1>
@@ -44,27 +45,26 @@ export default function BuyerStatus() {
                         {
                             location?.state?.status == "success" ?
                                 (
-                                    <OrangeStatusButton style={{ height: "40px", marginTop: '40px', backgroundColor:location?.state?.status == "success" && !aprovedAuditory ? "#FFA800" : "#24a148" }}>
-                                       {
-                                            location?.state?.status == "success" && !aprovedAuditory ? "Em análise" : aprovedAuditory ? "Aprovado" :""
-                                       }
+                                    <OrangeStatusButton style={{ height: "40px", marginTop: '40px', backgroundColor: location?.state?.status == "success" && !aprovedAuditory ? "#FFA800" : "#24a148" }}>
+                                        {
+                                            location?.state?.status == "success" && !aprovedAuditory ? "Em análise" : aprovedAuditory ? "Aprovado" : ""
+                                        }
                                     </OrangeStatusButton>
                                 )
                                 :
                                 !inAnalisisAuditory ?
-                                <OrangeButton style={{ height: "40px", marginTop: '40px' }} onClick={() => navigate('/compliance')}>
-                                    Iniciar vistoria
-                                </OrangeButton>
-                                : <></>
+                                    <OrangeButton style={{ height: "40px", marginTop: '40px' }} onClick={() => navigate('/compliance')}>
+                                        Iniciar vistoria
+                                    </OrangeButton>
+                                    : <></>
                         }
                     </StatusInfo>
 
                 </div>
-                <div className={`rounded ${DUTTransfered ? "purple" : ""}`} onClick={()=> {
+                <div className={`rounded ${DUTTransfered ? "purple" : ""}`} onClick={() => {
                     setDUTTransfered(true);
-                    if(DUTTransfered && aprovedAuditory){
-                        setAprovedDUT(true);
-                    }
+                    setAprovedDUT(true);
+
                 }}>
                     <StatusInfo translate='translateX(-80%)'>
                         <h1 className='right'>DUT Transferido</h1>
@@ -72,17 +72,17 @@ export default function BuyerStatus() {
                             Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
                         </p>
                         {
-                                 (inAnalisisAuditory || aprovedAuditory) ?
+                            ( aprovedAuditory || aprovedDUT) ?
                                 (
                                     aprovedDUT ?
-                                    <OrangeStatusButton style={{ height: "40px", marginTop: '25px', backgroundColor:inAnalisisAuditory ? "#FFA800" : "#24a148" }}>
-                                              Aprovado
-                                    </OrangeStatusButton>
-                                    :
-                                    <OrangeButton style={{height:"40px", marginTop: '25px' }} >
-                                        Contestar entrega
-                                    </OrangeButton>
-                                ): <></>
+                                        <OrangeStatusButton style={{ height: "40px", marginTop: '25px', backgroundColor: inAnalisisAuditory ? "#FFA800" : "#24a148" }}>
+                                            Aprovado
+                                        </OrangeStatusButton>
+                                        :
+                                        <OrangeButton style={{ height: "40px", marginTop: '25px' }} >
+                                            Contestar entrega
+                                        </OrangeButton>
+                                ) : <></>
                         }
                     </StatusInfo>
                 </div>

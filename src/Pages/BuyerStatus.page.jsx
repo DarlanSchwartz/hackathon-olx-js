@@ -19,7 +19,7 @@ export default function BuyerStatus() {
     },[]);
     return (
         <PageContainer>
-            <h1 className='title'>Status da venda</h1>
+            <h1 className='title'>Status da compra</h1>
             <ProgressBar>
                 <div className='line'></div>
                 <div className='rounded purple'>

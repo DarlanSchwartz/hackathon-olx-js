@@ -4,6 +4,7 @@ import { MdOutlinePlace } from "react-icons/md";
 
 export default function Product({ product, click }) {
     function getImg() {
+        if(!product?.images?.[0]) return "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png";
         if (product?.images?.[0] && typeof product?.images?.[0] === 'string') {
             return product?.images?.[0];
         }

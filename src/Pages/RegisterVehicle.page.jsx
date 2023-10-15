@@ -23,6 +23,7 @@ export default function RegisterVehiclePage() {
     const plateRef = useRef();
     const plateFinalRef = useRef();
     const [DUTImage, setDUTImage] = useState(null);
+    const [filledForm, setFilledForm] = useState(false);
 
     const navigate = useNavigate();
     function updatePhotos() {
@@ -79,6 +80,7 @@ export default function RegisterVehiclePage() {
             "https://img.olx.com.br/images/90/900307195504143.jpg",
             "https://img.olx.com.br/images/90/901396430371336.jpg"
         ]);
+        setFilledForm(true);
     }
 
     useEffect(() => {
@@ -128,7 +130,7 @@ export default function RegisterVehiclePage() {
             price: Number(priceRef.current.value) || 0,
             location: locationRef?.current?.value,
             createdAt: `Hoje, ${new Date().getHours()}:${new Date().getMinutes()}`,
-            images: [...photosRef.current.files]
+            images: filledForm ? [...photos] : [...photosRef.current.files]
         }
         setProducts([...products,newProduct]);
         navigate('/');

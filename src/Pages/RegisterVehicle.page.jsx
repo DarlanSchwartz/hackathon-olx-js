@@ -156,7 +156,7 @@ export default function RegisterVehiclePage() {
                         </svg>
                         <h1>Troca fácil DREX</h1>
                         <span>1,99% de taxa sobre o valor vendido</span>
-                        <p >Você assume toda responsabilidade do registro e venda do veiculo</p>
+                        <p >Com troca fácil DREX, você realiza a transferência do veiculo automaticamente ao receber o pagamento, garantido pela OLX.</p>
                     </SMethod>
 
                     <SMethod $attention={(selectedMethod == "MANUAL").toString()} onClick={() => setSelectedMethod("MANUAL")}>
@@ -166,7 +166,7 @@ export default function RegisterVehiclePage() {
                         </svg>
                         <h1>Venda Manual</h1>
                         <span></span>
-                        <p>Com troca fácil DREX, você realiza a transferência do veiculo automaticamente ao receber o pagamento, garantido pela OLX.</p>
+                        <p>Você assume toda responsabilidade do registro e venda do veiculo</p>
                     </SMethod>
                 </SellMethods>
                 {

@@ -32,7 +32,7 @@ export default function QRCodePage() {
     function pay() {
         setShowModal(true);
         setTimeout(async () => {
-            navigate('/status-buyer', { state: { status: "success" } });
+            navigate('/status-buyer');
         }, paymentSucessAfter);
     }
 

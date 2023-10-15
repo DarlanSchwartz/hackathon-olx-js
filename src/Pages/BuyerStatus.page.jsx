@@ -13,6 +13,9 @@ export default function BuyerStatus() {
     const [aprovedDUT, setAprovedDUT] = useState(false);
     useEffect(()=>{
         window.scrollTo(0, 0);
+        if(location?.state?.status == "success"){
+            setInAnalisisAuditory(true);
+        }
     },[]);
     return (
         <PageContainer>
@@ -69,7 +72,7 @@ export default function BuyerStatus() {
                             Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
                         </p>
                         {
-                            aprovedAuditory && DUTTransfered ?
+                                 (inAnalisisAuditory || aprovedAuditory) ?
                                 (
                                     aprovedDUT ?
                                     <OrangeStatusButton style={{ height: "40px", marginTop: '25px', backgroundColor:inAnalisisAuditory ? "#FFA800" : "#24a148" }}>

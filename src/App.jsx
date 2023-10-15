@@ -31,6 +31,7 @@ export default function App() {
   const [showHeaderItems, setShowHeaderItems] = useState(true);
 
   return (
+
     <ApplicationContext.Provider value={
       {
         products: cars,
@@ -56,6 +57,7 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </ApplicationContext.Provider>
+
   )
 }
 

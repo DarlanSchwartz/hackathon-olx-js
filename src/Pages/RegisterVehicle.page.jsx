@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { BRANDS_OPTIONS, DOORS_OPTIONS, MODELS_OPTIONS, PHOTO_TIPS, STATE_OF_FINANCING_OPTIONS, YEAR_OPTIONS } from '../constants';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Web3 from 'web3';
-import axios from 'axios';
 import { Alchemy, Network } from "alchemy-sdk";
 import OrangeButton from '../Components/OrangeButton';
 import { useNavigate } from 'react-router-dom';
@@ -15,11 +14,13 @@ export default function RegisterVehiclePage() {
     const [selectedMethod, setSelectedMethod] = useState("DREX");
     const [photos, setPhotos] = useState([]);
     const photosRef = useRef();
+    const doorRef = useRef();
     const yearRef = useRef();
     const priceRef = useRef();
     const locationRef = useRef();
     const brandRef = useRef();
     const modelRef = useRef();
+    const [DUTImage, setDUTImage] = useState(null);
 
     const navigate = useNavigate();
     function updatePhotos() {
@@ -44,7 +45,7 @@ export default function RegisterVehiclePage() {
 
     const getNftByAdress = async () => {
 
-        const nftManiaContract = "0x1882b841564a11675729abff14c2b6ecbb5dfb14"
+        const nftManiaContract = "0xa2d9ded6115b7b7208459450d676f0127418ae7a"
 
         const config = {
             apiKey: import.meta.env.VITE_PUBLIC_API,
@@ -58,9 +59,37 @@ export default function RegisterVehiclePage() {
 
             const ownedNfts = nftList.filter((nft) => nft.contract.address === nftManiaContract)
             setNftsEspecificacoes(ownedNfts);
+            setDUTImage(ownedNfts?.[0]?.media?.[0]?.gateway);
             console.log(ownedNfts)
         }
     }
+
+    function fillForm(){
+        modelRef.current.value = "Uno";
+        brandRef.current.value = "Fiat";
+        yearRef.current.value = "2010";
+        priceRef.current.value = "31990";
+        locationRef.current.value = "São Paulo - SP";
+        doorRef.current.value = "4";
+        setPhotos([
+            "https://img.olx.com.br/images/90/904301553269682.jpg",
+            "https://img.olx.com.br/images/90/900379794880835.jpg",
+            "https://img.olx.com.br/images/90/906359319697142.jpg",
+            "https://img.olx.com.br/images/89/897310797155500.jpg",
+            "https://img.olx.com.br/images/90/905379918162159.jpg",
+            "https://img.olx.com.br/images/90/900307195504143.jpg",
+            "https://img.olx.com.br/images/90/901396430371336.jpg"
+        ]);
+    }
+
+    useEffect(() => {
+      if(DUTImage)
+        {
+            fillForm();
+        }
+    }, [DUTImage])
+    
+
     const connectWallet = useCallback(async () => {
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
@@ -109,6 +138,7 @@ export default function RegisterVehiclePage() {
     return (
         <PageContainer>
             <h1 className='title'>O que você está anunciando?</h1>
+           
             <MainBox>
                 <BackButton onClick={() => navigate('/my-announces')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="43" height="24" viewBox="0 0 43 24" fill="none">
@@ -147,7 +177,13 @@ export default function RegisterVehiclePage() {
                     selectedMethod == "DREX" &&
                     <ConnectToDREX>
                         <OrangeButton onClick={connectWallet}>Conectar ao DREX</OrangeButton>
-                        <div className='nft-box'></div>
+                        <div className='nft-box'>
+                            {
+                                DUTImage &&
+                                <img onClick={()=> window.open(DUTImage, "_blank")} src={DUTImage} alt="" />
+                            }
+                            
+                        </div>
                     </ConnectToDREX>
                 }
 
@@ -162,7 +198,7 @@ export default function RegisterVehiclePage() {
                     </InputContainer>
                     <InputContainer>
                         <label htmlFor="doors">Quantas portas?</label>
-                        <SelectForm name="doors" id="doors">
+                        <SelectForm ref={doorRef} name="doors" id="doors">
                             {
                                 DOORS_OPTIONS.map((option) => {
                                     return <option key={option} value={option}>{option}</option>
@@ -466,6 +502,20 @@ border-radius: 10px;
 border: 1px dashed #9747FF;
 
 background: #FFF;
+display:flex;
+align-items: center;
+justify-content:center ;
+img{
+    width: 100%;
+height: 100%;
+object-fit: scale-down;
+padding: 10px;
+cursor: pointer;
+
+&:hover{
+    border: 1px solid #9747FF;
+}
+}
 }
 `;
 

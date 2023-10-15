@@ -14,7 +14,7 @@ import Compliance from './Pages/Compliance.page.jsx';
 export default function App() {
   const [cars, setCars] = useState([
     {
-      name: "Audi A3",
+      name: "Audi A3 Sportback",
       price: 15000,
       location: "São Paulo - SP",
       createdAt: "Ontem, 21:33",

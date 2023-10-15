@@ -21,6 +21,9 @@ export default function AnnouncePage() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(updateCarInfo, []);
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[]);
 
     function updateCarInfo() {
         const car = state.state;

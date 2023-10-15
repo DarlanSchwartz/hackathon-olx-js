@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import OrangeButton from '../Components/OrangeButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 export default function BuyerStatus() {
@@ -11,6 +11,9 @@ export default function BuyerStatus() {
     const [aprovedAuditory, setAprovedAuditory] = useState(false);
     const [DUTTransfered, setDUTTransfered] = useState(false);
     const [aprovedDUT, setAprovedDUT] = useState(false);
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[]);
     return (
         <PageContainer>
             <h1 className='title'>Status da venda</h1>

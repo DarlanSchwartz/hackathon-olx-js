@@ -27,6 +27,7 @@ export default function QRCodePage() {
     useEffect(() => {
         setSeconds(1800);
         setCopyQrCodeValue(copyCodeValue);
+        window.scrollTo(0, 0);
     }, []);
 
     function pay() {

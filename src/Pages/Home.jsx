@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { PHOTO_CATEGORIES } from '../constants';
 import ApplicationContext from '../AppContext';
@@ -9,6 +9,9 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
   const { products, setProducts } = useContext(ApplicationContext);
   const navigate = useNavigate();
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+},[]);
   return (
     <PageContainer>
       <Banner>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components';
 import MyAnnounce from '../Components/MyAnnounce.component';
 import ApplicationContext from '../AppContext';
@@ -7,6 +7,9 @@ import { useNavigate } from 'react-router-dom';
 export default function MyAnnouncesPage() {
     const { products, setProducts } = useContext(ApplicationContext);
     const  navigate  = useNavigate();
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[]);
     return (
         <PageContainer>
             <h1 className='title'>Meus anúncios</h1>

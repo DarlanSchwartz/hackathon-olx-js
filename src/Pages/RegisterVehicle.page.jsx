@@ -84,6 +84,10 @@ export default function RegisterVehiclePage() {
             fillForm();
         }
     }, [DUTImage])
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     
 
     const connectWallet = useCallback(async () => {

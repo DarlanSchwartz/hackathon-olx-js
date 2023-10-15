@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components';
 import OrangeButton from '../Components/OrangeButton';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,9 @@ export default function Compliance() {
     const [vehicleBackInteriorImage, setVehicleBackInteriorImage] = useState(null);
 
     const navigate = useNavigate();
-
+    useEffect(()=>{
+        window.scrollTo(0, 0);
+    },[]);
     function sendCompliance(){
         navigate('/status-buyer',{state:{status:'success'}});
     }

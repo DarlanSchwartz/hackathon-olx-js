@@ -74,7 +74,7 @@ export default function QRCodePage() {
                         <RightQRCodeContainer>
                             <ValueBox>
                                 <h1>Valor</h1>
-                                <span>{state?.state?.value || "R$ 89.000,90"}</span>
+                                <span>{state?.state?.price || "R$ 89.000,90"}</span>
                             </ValueBox>
                             <img onClick={pay} src="/images/imagem-q-rcode.png" alt="" />
                             <p>Válido por {segundosParaMinutos(seconds)}</p>

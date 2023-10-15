@@ -95,18 +95,14 @@ export default function RegisterVehiclePage() {
     }, []);
 
     function register() {
-        setProducts(
-            [
-                ...products,
-                {
-                    name: `${brandRef?.current?.value} ${modelRef?.current?.value} ${yearRef?.current?.value}`,
-                    price: priceRef.current.value,
-                    location: locationRef?.current?.value,
-                    createdAt: `Hoje, ${new Date().getHours()}:${new Date().getMinutes()}`,
-                    images: [...photosRef.current.files]
-                }
-            ]
-        );
+        const newProduct = {
+            name: `${brandRef?.current?.value} ${modelRef?.current?.value} ${yearRef?.current?.value}`,
+            price: Number(priceRef.current.value) || 0,
+            location: locationRef?.current?.value,
+            createdAt: `Hoje, ${new Date().getHours()}:${new Date().getMinutes()}`,
+            images: [...photosRef.current.files]
+        }
+        setProducts([...products,newProduct]);
         navigate('/');
 
     }
@@ -229,8 +225,8 @@ export default function RegisterVehiclePage() {
                         <InputForm type='text' id='location' ref={locationRef} />
                     </InputContainer>
                     <InputContainer>
-                        <label ref={priceRef} htmlFor="price">Preço de venda:</label>
-                        <InputForm type='number' id='price' />
+                        <label  htmlFor="price">Preço de venda:</label>
+                        <InputForm ref={priceRef} type='number' id='price' />
                     </InputContainer>
 
                     <TipPhotos>

@@ -7,7 +7,7 @@ import { AiOutlineCalculator } from 'react-icons/ai';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { BsFlag } from 'react-icons/bs';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 import SCAnnouceInfo from '../Components/SCAnnouceInfo.component';
@@ -36,26 +36,33 @@ export default function AnnouncePage() {
 
         return URL.createObjectURL(car?.images?.[0]);
     }
-      function changeCurrentImageButtonAction(up){
-       
-        if(up){
-            if(Car?.images?.[currentImageIndex - 1]){
+
+    function getImage(img) {
+        if (img && typeof img === 'string') {
+            return img;
+        }
+        return URL.createObjectURL(img);
+    }
+    function changeCurrentImageButtonAction(up) {
+
+        if (up) {
+            if (Car?.images?.[currentImageIndex - 1]) {
                 setMainImage(getMainImg({ ...Car, images: [Car?.images?.[currentImageIndex - 1]] }));
                 setCurrentImageIndex(cur => {
                     return cur - 1;
                 });
-                
+
             }
         }
-        else{
-            if(Car?.images?.[currentImageIndex + 1]){
+        else {
+            if (Car?.images?.[currentImageIndex + 1]) {
                 setMainImage(getMainImg({ ...Car, images: [Car?.images?.[currentImageIndex + 1]] }));
                 setCurrentImageIndex(cur => {
                     return cur + 1;
                 });
             }
         }
-      }
+    }
 
     return (
         <PageContainer>
@@ -64,26 +71,26 @@ export default function AnnouncePage() {
                 <PhotoContainer>
                     <img src={mainImage} className='main-photo' alt="" />
                     <PhotoList>
-                        <button onClick={()=> changeCurrentImageButtonAction(true)}>
+                        <button onClick={() => changeCurrentImageButtonAction(true)}>
                             <SlArrowUp />
-                            </button>
+                        </button>
                         {
-                            Car?.images?.map((img,index) => (
+                            Car?.images?.map((img, index) => (
                                 <PhotoListImg onClick={() => {
                                     setMainImage(getMainImg({ ...Car, images: [img] }));
                                     setCurrentImageIndex(index);
-                                }} src={img} />
+                                }} src={getImage(img)} />
                             ))
                         }
                         {/*change image to before button */}
-                        <button onClick={()=> changeCurrentImageButtonAction(false)}>
+                        <button onClick={() => changeCurrentImageButtonAction(false)}>
                             <SlArrowUp style={{ transform: "rotateZ(180deg)" }} />
-                            </button>
+                        </button>
                     </PhotoList>
-                    <button onClick={()=> changeCurrentImageButtonAction(false)} className='arrow right'>
+                    <button onClick={() => changeCurrentImageButtonAction(false)} className='arrow right'>
                         <SlArrowUp style={{ transform: "rotateZ(90deg)" }} />
                     </button>
-                    <button onClick={()=> changeCurrentImageButtonAction(true)} className='arrow left'>
+                    <button onClick={() => changeCurrentImageButtonAction(true)} className='arrow left'>
                         <SlArrowUp style={{ transform: "rotateZ(-90deg)" }} />
                     </button>
                 </PhotoContainer>
@@ -150,11 +157,11 @@ export default function AnnouncePage() {
 
             <BuyContainer>
                 <PriceContainer>
-                    <span>{Car?.price?.toLocaleString('pt-br',{ style: 'currency',currency: 'BRL',minimumFractionDigits: 2,}) || "R$ 0,00"}</span>
+                    <span>{Car?.price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, }) || "R$ 0,00"}</span>
                 </PriceContainer>
                 <BuyBox>
                     <h1>Comprar via DREX</h1>
-                    <button onClick={()=> navigate('/qr-code-pay')}>Comprar</button>
+                    <button onClick={() => navigate('/qr-code-pay', { state: { price: Car?.price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, }) || "R$ 0,00" } })}>Comprar</button>
                 </BuyBox>
                 <SCAnnouceInfo />
             </BuyContainer>

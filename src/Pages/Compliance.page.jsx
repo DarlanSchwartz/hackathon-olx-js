@@ -68,7 +68,7 @@ export default function Compliance() {
     }
     return (
         <PageContainer>
-            <h1 className='title'>Tire a fotos do veiculo como na imagem a baixo</h1>
+            <h1 className='title'>Tire as fotos do veículo como na imagem abaixo:</h1>
             <PhotoComplianceList>
                 <ComplianceItem>
                     <h1>Frente</h1>

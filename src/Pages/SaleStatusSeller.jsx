@@ -20,9 +20,9 @@ export default function SaleStatusSeller() {
         </div>
         <div className='rounded'>
             <StatusInfo translate='translateX(-40%)'>
-                <h1 className='center'>Auditoria do veiculo</h1>
+                <h1 className='center'>Auditoria do veículo</h1>
                 <p className='center'>
-                    Nessa etapa a OLX avalia se o veiculo está como anunciado e de acordo com os parâmetros da plataforma
+                    Nessa etapa a OLX avalia se o veículo está como o anunciado e de acordo com os parâmetros da plataforma
                 </p>
             </StatusInfo>
 
@@ -31,7 +31,7 @@ export default function SaleStatusSeller() {
             <StatusInfo translate='translateX(-80%)'>
                 <h1 className='right'>DUT Transferido</h1>
                 <p className='right'>
-                    Após a avaliação do veiculo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
+                    Após a avaliação do veículo e 30 dias para contestação do usuário o DUT é transferido via DREX para conta atrelada ao comprador pelo banco central.
                 </p>
             </StatusInfo>
 

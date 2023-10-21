@@ -60,6 +60,6 @@ A sua nomenclatura foi pensada para traduzir a mensagem do que é essa moeda.
 
 Assim como o Pix, o Drex foi criado com o intuito de facilitar as transações dos usuários, tornando-a mais segura e rápida.
 
-5. A nossa aplicação visa a venda de veículos ultilizando o DREX, o governo federal ja anunciou que isso será possível, tendo isso em mente simulamos de uma maneira bem simples como seria a ultilização do DREX na compra de um veículo de segunda mão na plataforma OLX, usando uma carteira digital (neste caso a metamask).
+5. A nossa aplicação visa a venda de veículos utilizando o DREX, o governo federal ja anunciou que isso será possível, tendo isso em mente simulamos de uma maneira bem simples como seria a ultilização do DREX na compra de um veículo de segunda mão na plataforma OLX, usando uma carteira digital (neste caso a metamask).
 
 6. Quer conferir mais sobre o item 5? Leia este artigo -> https://br.cointelegraph.com/news/federal-government-expands-access-to-the-digital-sale-of-vehicles-and-paves-the-way-for-a-boom-in-car-rwa-tokens-in-brazil

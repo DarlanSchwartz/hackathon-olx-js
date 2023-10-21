@@ -68,7 +68,7 @@ export default function QRCodePage() {
                         <LeftTutorialContainer>
                             <TutorialStep>
                                 <span>1</span>
-                                <h1>Abra seu aplicativo de pagamentos ou internet baking</h1>
+                                <h1>Abra seu aplicativo de pagamentos ou internet banking</h1>
                             </TutorialStep>
                             <TutorialStep>
                                 <span>2</span>
@@ -76,7 +76,7 @@ export default function QRCodePage() {
                             </TutorialStep>
                             <TutorialStep>
                                 <span>3</span>
-                                <h1>Copie o codigo abaixo</h1>
+                                <h1>Copie o código abaixo</h1>
                             </TutorialStep>
                             <CopyPIXInput onChange={(e)=> console.log(e.target.value)} autoFocus value={copyQrCodeValue} />
                         </LeftTutorialContainer>

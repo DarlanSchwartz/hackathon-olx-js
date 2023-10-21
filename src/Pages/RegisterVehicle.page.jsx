@@ -199,7 +199,7 @@ export default function RegisterVehiclePage() {
                         </svg>
                         <h1>Troca fácil DREX</h1>
                         <span>1,99% de taxa sobre o valor vendido</span>
-                        <p >Com troca fácil DREX, você realiza a transferência do veiculo automaticamente ao receber o pagamento, garantido pela OLX.</p>
+                        <p >Com troca fácil DREX, você realiza a transferência do veículo automaticamente ao receber o pagamento, garantido pela OLX.</p>
                     </SMethod>
 
                     <SMethod $attention={(selectedMethod == "MANUAL").toString()} onClick={() => setSelectedMethod("MANUAL")}>
@@ -209,7 +209,7 @@ export default function RegisterVehiclePage() {
                         </svg>
                         <h1>Venda Manual</h1>
                         <span></span>
-                        <p>Você assume toda responsabilidade do registro e venda do veiculo</p>
+                        <p>Você assume toda responsabilidade do registro e venda do veículo.</p>
                     </SMethod>
                 </SellMethods>
                 {
@@ -222,8 +222,8 @@ export default function RegisterVehiclePage() {
                                         <path d="M41.3151 62.5265C49.1832 44.2547 63.4044 27.3089 83.2273 15.5349C118.011 -5.12502 158.716 -3.54965 184.674 16.6432L169.931 32.0292C160.02 24.317 147.206 20.089 133.313 19.9476C119.42 19.8062 105.157 23.7585 92.5564 31.2415C77.9697 39.9054 67.3414 52.3374 61.2724 65.801L101.86 72.4605L34.5365 112.448L0.952053 55.9038L41.3151 62.5265Z" fill="white" />
                                     </svg>
                                     <div className='info'>
-                                        <h1>Realize o deposito do seu DUT clicando no botão abaixo.</h1>
-                                        <h2>Para isso você precisa ter a carteira autorizada pelo Detran com seu DUT habilitada no seu computador.</h2>
+                                        <h1>Realize o depósito do seu DUT clicando no botão abaixo.</h1>
+                                        <h2>Para isso você precisa ter uma carteira autorizada pelo Detran e habilitada no seu computador contendo seu DUT.</h2>
                                     </div>
                                 </ModalInfo>
                                 Conectar ao DREX
@@ -295,7 +295,7 @@ export default function RegisterVehiclePage() {
                         <span>Sobre o carro</span>
                     </SellMethod>
                     <InputContainer>
-                        <label htmlFor="km">Qual é a quilometragem</label>
+                        <label htmlFor="km">Qual é a quilometragem?</label>
                         <InputForm type='text' id='km' />
                     </InputContainer>
                     <InputContainer>
@@ -313,14 +313,14 @@ export default function RegisterVehiclePage() {
                         <InputForm type='text' id='location' ref={locationRef} />
                     </InputContainer>
                     <InputContainer>
-                        <label htmlFor="price">Preço de venda:</label>
+                        <label htmlFor="price">Preço de venda</label>
                         <InputForm ref={priceRef} type='number' id='price' />
                     </InputContainer>
 
                     <TipPhotos>
                         <span>
                             <img src="/camera.png" alt="" />
-                            Veja algumas dicas de fotos para você destacar no seu anuncio
+                            Veja algumas dicas de fotos para você destacar no seu anúncio
                         </span>
                         <PhotoList>
                             {

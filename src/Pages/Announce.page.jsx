@@ -131,10 +131,10 @@ export default function AnnouncePage() {
                             Chave reserva
                         </Item>
                         <Item>
-                            Revisõpes feitas em concessionária
+                            Revisões feitas em concessionária
                         </Item>
                         <Item>
-                            Com arantia
+                            Com Garantia
                         </Item>
 
                     </ItemList>

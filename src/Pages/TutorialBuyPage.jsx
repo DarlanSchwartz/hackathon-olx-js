@@ -11,22 +11,22 @@ export default function TutorialBuyPage() {
             <Items>
                 <List>
                     <Item>
-                        <h1>Você realizar um PIX para o endereço do contrato</h1>
+                        <h1>Você realiza um PIX para o endereço do contrato</h1>
                         <div className='image-box'>
                             <img src="/images/first.png" alt="" />
                         </div>
 
                         <p style={{ width: "291px", height: "96px" }}>
-                            Quando você realiza esse envio, o dinheiro não irá diretamente para o vendedor, e ficará em um “Contrato inteligente”, ou seja a OLX armazenará seu dinheiro com segurança
+                            Quando você realiza esse envio, o dinheiro não irá diretamente para o vendedor, e ficará em um “Contrato Inteligente”, ou seja a OLX armazenará seu dinheiro com segurança.
                         </p>
                     </Item>
                     <Item>
-                        <h1>Entrega do veiculo</h1>
+                        <h1>Entrega do veículo</h1>
                         <div className='image-box'>
                             <img src="/images/second.png" alt="" />
                         </div>
                         <p style={{ width: "291px", height: "96px" }}>
-                            No mesmo endereço que você depositou seu dinheiro, o vendedor também depositou o DUT do veiculo. Dessa forma, ambas partes estão protegidas ao se encontrarem e fazer a troca de posse do veiculo.
+                            No mesmo endereço que você depositou seu dinheiro, o vendedor também depositou o DUT do veículo. Dessa forma, ambas as partes estão protegidas ao se encontrarem e fazer a troca de posse do veículo.
                         </p>
                     </Item>
                     <Item>
@@ -35,7 +35,7 @@ export default function TutorialBuyPage() {
                             <img src="/images/third.png" alt="" />
                         </div>
                         <p style={{ width: "317px", height: "96px" }}>
-                            Você realiza uma vistoria ao receber o veiculo, pela Plataforma OLX, após esse momento, você tem 30 dias de segurança para contestar algo que tenha saído errado no processo de venda. Após esses 30 dias, você terá o veiculo registrado em seu nome e o vendedor receberá o seu dinheiro enviado
+                            Você realiza uma vistoria ao receber o veículo, pela Plataforma OLX. Após esse momento, você tem 30 dias de segurança para contestar algo que tenha saído errado no processo de venda. Após esses 30 dias, você terá o veículo registrado em seu nome e o vendedor receberá o seu dinheiro.
                         </p>
                     </Item>
                 </List>

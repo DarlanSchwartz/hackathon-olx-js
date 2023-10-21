@@ -66,7 +66,7 @@ html, body, span, applet, object, iframe,
     #root{
         min-height: 100%;
 		max-height: fit-content;
-		--toastify-color-success: purple !important;
+		--toastify-color-success: #FFA800 !important;
     }
 
     input{

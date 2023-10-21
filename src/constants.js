@@ -3,6 +3,7 @@ export const DOORS_OPTIONS = [
 ];
 
 export const BRANDS_OPTIONS = [
+    'Selecione uma marca',
     'Audi',
     'BMW',
     'Chevrolet',
@@ -22,6 +23,7 @@ export const BRANDS_OPTIONS = [
 ];
 
 export const MODELS_OPTIONS = [
+    'Selecione um modelo',
     'A1',
     'A3',
     'A4',
@@ -73,6 +75,7 @@ export const MODELS_OPTIONS = [
 ];
 
 export const YEAR_OPTIONS = [
+    'Selecione o ano',
     2021,
     2020,
     2019,
@@ -158,6 +161,7 @@ export const YEAR_OPTIONS = [
 ];
 
 export const STATE_OF_FINANCING_OPTIONS = [
+    'Selecione o estado do financiamento',
     'Quitado',
     'Financiado',
     'Financiado e Quitado'

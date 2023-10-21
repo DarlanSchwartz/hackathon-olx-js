@@ -67,6 +67,10 @@ export default function AnnouncePage() {
         }
     }
 
+    function buy(){
+        navigate('/tutorial-buy-with-drex', { state: { price: Car?.price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, }) || "R$ 0,00" } });
+    }
+
     return (
         <PageContainer>
             
@@ -165,7 +169,7 @@ export default function AnnouncePage() {
                 </PriceContainer>
                 <BuyBox>
                     <h1>Comprar via DREX</h1>
-                    <button onClick={() => navigate('/qr-code-pay', { state: { price: Car?.price?.toLocaleString('pt-br', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, }) || "R$ 0,00" } })}>Comprar</button>
+                    <button onClick={buy} >Comprar</button>
                 </BuyBox>
                 <SCAnnouceInfo />
             </BuyContainer>

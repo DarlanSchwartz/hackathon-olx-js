@@ -20,6 +20,7 @@ font-size: 18px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
+position: relative;
 
 &:enabled{
     &:hover{

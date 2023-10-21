@@ -10,6 +10,9 @@ import MyAnnouncesPage from './Pages/MyAnnounces.page.jsx';
 import SaleStatusSeller from './Pages/SaleStatusSeller.jsx';
 import QRCodePage from './Pages/QRCode.page.jsx';
 import Compliance from './Pages/Compliance.page.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import TutorialBuyPage from './Pages/TutorialBuyPage.jsx';
 
 export default function App() {
   const [cars, setCars] = useState([
@@ -45,7 +48,9 @@ export default function App() {
 
       <BrowserRouter>
         <Header show_sb={showSearchBar} show_items={showHeaderItems} show_announce_btn={showAnnouceButton} />
+        <ToastContainer />
         <Routes>
+          <Route path="/tutorial-buy-with-drex" element={<TutorialBuyPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/buy" element={<AnnouncePage />} />
           <Route path="/status-buyer" element={<BuyerStatus />} />

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MdPix } from 'react-icons/md';
 import { useLocation, useNavigate } from "react-router-dom";
 import ModalPaymentInProgress from './ModalPaymentInProgress.modal';
+import { toast } from 'react-toastify';
 const paymentSucessAfter = 3000;
 const copyCodeValue = "PIXomQ1rSEZUclE7aepI+TqRsQQtTwEv3W6oQ3wvB6g89RMSGcLK4Vw4QQBt3Co4JP7ZsJTUEywhs+9PpKa1LCAR3EvRImlQljJcyVEirhZ/3DhDMgfMcbOFt80JpIOIbrAcwWAVb4VsKXznOmtvhuyQhPUGNuOmnt4LpzHhsdaZMwn/";
 export default function QRCodePage() {
@@ -34,6 +35,14 @@ export default function QRCodePage() {
         setShowModal(true);
         setTimeout(async () => {
             navigate('/status-buyer');
+            toast.success('Sucesso na compra!',{
+                position: "bottom-left",
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                theme: 'colored',
+            })
         }, paymentSucessAfter);
     }
 
@@ -69,7 +78,7 @@ export default function QRCodePage() {
                                 <span>3</span>
                                 <h1>Copie o codigo abaixo</h1>
                             </TutorialStep>
-                            <CopyPIXInput autoFocus value={copyQrCodeValue} />
+                            <CopyPIXInput onChange={(e)=> console.log(e.target.value)} autoFocus value={copyQrCodeValue} />
                         </LeftTutorialContainer>
 
                         <RightQRCodeContainer>

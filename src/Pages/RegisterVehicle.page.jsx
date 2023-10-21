@@ -6,12 +6,16 @@ import { Alchemy, Network } from "alchemy-sdk";
 import OrangeButton from '../Components/OrangeButton';
 import { useNavigate } from 'react-router-dom';
 import ApplicationContext from '../AppContext';
+import ModalDREX from './ModalDREX';
+import { useLockBodyScroll, useWindowScroll } from '@uidotdev/usehooks';
+import { toast } from 'react-toastify';
 
 export default function RegisterVehiclePage() {
+
     const [userAddress, setUserAddress] = useState(null);
     const [nftsEspecificacoes, setNftsEspecificacoes] = useState();
     const { products, setProducts } = useContext(ApplicationContext);
-    const [selectedMethod, setSelectedMethod] = useState("DREX");
+    const [selectedMethod, setSelectedMethod] = useState("MANUAL");
     const [photos, setPhotos] = useState([]);
     const photosRef = useRef();
     const doorRef = useRef();
@@ -24,6 +28,19 @@ export default function RegisterVehiclePage() {
     const plateFinalRef = useRef();
     const [DUTImage, setDUTImage] = useState(null);
     const [filledForm, setFilledForm] = useState(false);
+    const [{ x, y }, scrollTo] = useWindowScroll();
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        if (selectedMethod == "DREX") {
+            setPhotos([]);
+            scrollTo(0, 700);
+            setShowModal(true);
+        }
+        else {
+            setDUTImage(null);
+        }
+    }, [selectedMethod]);
 
     const navigate = useNavigate();
     function updatePhotos() {
@@ -59,7 +76,7 @@ export default function RegisterVehiclePage() {
         }
     }
 
-    function fillForm(){
+    function fillForm() {
         modelRef.current.value = "Uno";
         brandRef.current.value = "Fiat";
         yearRef.current.value = "2010";
@@ -79,8 +96,7 @@ export default function RegisterVehiclePage() {
     }
 
     useEffect(() => {
-      if(DUTImage)
-        {
+        if (DUTImage) {
             fillForm();
         }
     }, [DUTImage])
@@ -88,7 +104,7 @@ export default function RegisterVehiclePage() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    
+
 
     const connectWallet = useCallback(async () => {
         if (window.ethereum) {
@@ -114,9 +130,21 @@ export default function RegisterVehiclePage() {
                 blockExplorerUrls: ['https://explorer.matic.network/']
             };
 
-            await window.ethereum.request({
+            window.ethereum.request({
                 method: 'wallet_addEthereumChain',
                 params: [polygonNetwork]
+            }).then(() => {
+                setShowModal(false);
+                toast.success('Carteira conectada com sucesso!',{
+                    position: "bottom-left",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    theme: 'colored',
+                })
+            }).catch((error) => {
+                setShowModal(false);
             });
         } else {
             alert('MetaMask não encontrada. Você precisa instalar o MetaMask para usar este aplicativo.');
@@ -131,14 +159,25 @@ export default function RegisterVehiclePage() {
             createdAt: `Hoje, ${new Date().getHours()}:${new Date().getMinutes()}`,
             images: filledForm ? [...photos] : [...photosRef.current.files]
         }
-        setProducts([...products,newProduct]);
+        setProducts([...products, newProduct]);
         navigate('/');
-
+        toast.success('Carro registrado para a venda!',{
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            theme: 'colored',
+        })
     }
     return (
-        <PageContainer>
+        <PageContainer $sm={showModal.toString()}>
+            {showModal &&
+                <ModalDREX >
+
+                </ModalDREX>}
             <h1 className='title'>O que você está anunciando?</h1>
-           
+
             <MainBox>
                 <BackButton onClick={() => navigate('/my-announces')}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="43" height="24" viewBox="0 0 43 24" fill="none">
@@ -175,14 +214,27 @@ export default function RegisterVehiclePage() {
                 </SellMethods>
                 {
                     selectedMethod == "DREX" &&
-                    <ConnectToDREX>
-                        <OrangeButton onClick={connectWallet}>Conectar ao DREX</OrangeButton>
+                    <ConnectToDREX $sm={showModal.toString()}>
+                        <div className='invisible-box'>
+                            <OrangeButton className={showModal ? 'modal-btn' : ''} onClick={connectWallet}>
+                                <ModalInfo className={!showModal ? 'hidden' : ''}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="185" height="113" viewBox="0 0 185 113" fill="none">
+                                        <path d="M41.3151 62.5265C49.1832 44.2547 63.4044 27.3089 83.2273 15.5349C118.011 -5.12502 158.716 -3.54965 184.674 16.6432L169.931 32.0292C160.02 24.317 147.206 20.089 133.313 19.9476C119.42 19.8062 105.157 23.7585 92.5564 31.2415C77.9697 39.9054 67.3414 52.3374 61.2724 65.801L101.86 72.4605L34.5365 112.448L0.952053 55.9038L41.3151 62.5265Z" fill="white" />
+                                    </svg>
+                                    <div className='info'>
+                                        <h1>Realize o deposito do seu DUT clicando no botão abaixo.</h1>
+                                        <h2>Para isso você precisa ter a carteira autorizada pelo Detran com seu DUT habilitada no seu computador.</h2>
+                                    </div>
+                                </ModalInfo>
+                                Conectar ao DREX
+                            </OrangeButton>
+                        </div>
                         <div className='nft-box'>
                             {
                                 DUTImage &&
-                                <img onClick={()=> window.open(DUTImage, "_blank")} src={DUTImage} alt="" />
+                                <img onClick={() => window.open(DUTImage, "_blank")} src={DUTImage} alt="" />
                             }
-                            
+
                         </div>
                     </ConnectToDREX>
                 }
@@ -261,7 +313,7 @@ export default function RegisterVehiclePage() {
                         <InputForm type='text' id='location' ref={locationRef} />
                     </InputContainer>
                     <InputContainer>
-                        <label  htmlFor="price">Preço de venda:</label>
+                        <label htmlFor="price">Preço de venda:</label>
                         <InputForm ref={priceRef} type='number' id='price' />
                     </InputContainer>
 
@@ -482,43 +534,89 @@ line-height: 19.6px; /* 122.5% */
 }
 `;
 
+const ModalInfo = styled.div`
+        display: flex;
+        position: absolute;
+        align-items: center;
+        gap: 100px;
+        right: -800px;
+        top: 0;
+        transform: translateY(-280px);
+    h1,h2{
+        color: #FFF;
+        font-family: Inter;
+        font-size: 28px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 42.1px; 
+        text-align: left;
+    }
+
+    .info{
+        display: flex;
+    width: 656px;
+    height: 307px;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    gap: 20px;
+    }
+`;
 
 
 
 const ConnectToDREX = styled.div`
-margin-top: 200px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-left: 50px;
-height: 323px;
-width: 100%;
-max-width: 844px;
-gap: 68px;
-
-.nft-box{
+    margin-top: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 50px;
+    height: 323px;
     width: 100%;
-    max-width: 388px;
-height: 323px;
-border-radius: 10px;
-border: 1px dashed #9747FF;
+    max-width: 844px;
+    gap: 68px;
+   
+    .modal-btn{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+    }
 
-background: #FFF;
-display:flex;
-align-items: center;
-justify-content:center ;
-img{
-    width: 100%;
-height: 100%;
-object-fit: scale-down;
-padding: 10px;
-cursor: pointer;
+    .invisible-box{
+        width: 100%;
+        max-width: 388px;
+        height: 323px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-&:hover{
-    border: 1px solid #9747FF;
-}
-}
-}
+    .nft-box{
+        width: 100%;
+        max-width: 388px;
+        height: 323px;
+        border-radius: 10px;
+        border: 1px dashed #9747FF;
+
+        background: #FFF;
+        display:flex;
+        align-items: center;
+        justify-content:center ;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: scale-down;
+            padding: 10px;
+            cursor: pointer;
+
+            &:hover{
+                border: 1px solid #9747FF;
+            }
+        }
+    }
 `;
 
 const SMethod = styled.div`
@@ -654,5 +752,9 @@ const PageContainer = styled.div`
         font-weight: 600;
         line-height: 19.6px; /* 81.667% */
     }
+    overflow: ${p => p.$sm == 'true' ? "hidden" : "auto"};
 
+    .hidden{
+        display: none;
+    }
 `;
